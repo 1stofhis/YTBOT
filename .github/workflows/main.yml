@@ -1,0 +1,38 @@
+name: YouTube Bot Automation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    env:
+      ELEVENLABS_API_KEY: ${{ secrets.sk_cf697c7a40541437321a99b600fa909f8500a01a3a546401 }}
+      PEXELS_API_KEY: ${{ secrets.TDupi3QJiDh1VVrO3uq1Eer6b6ZzdfczAbI1bTOr44Z5ABb7zS46GMbk }}
+      AMAZON_TAG: ${{ secrets.1STOFHIS-20 }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Restore YouTube credentials
+        run: |
+          echo "${{ secrets.CLIENT_SECRET_JSON }}" | base64 -d > client_secret.json
+          echo "${{ secrets.TOKEN_PICKLE }}" | base64 -d > token.pickle
+
+      - name: Run YouTube Bot
+        run: python src/youtube_bot.py
