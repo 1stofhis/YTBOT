@@ -35,4 +35,4 @@ jobs:
           echo "${{ secrets.TOKEN_PICKLE }}" | base64 -d > token.pickle
 
       - name: Run YouTube Bot
-        run: python src/youtube_bot.py
+        run: python youtube_bot.py
