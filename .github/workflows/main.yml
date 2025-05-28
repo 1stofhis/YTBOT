@@ -29,8 +29,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Restore YouTube credentials
-        run: |
+      - name: Restore YouTube credentialsp
+        run: python youtube_upload.yml
           echo "${{ secrets.CLIENT_SECRET_JSON }}" | base64 -d > client_secret.json
           echo "${{ secrets.TOKEN_PICKLE }}" | base64 -d > token.pickle
 
